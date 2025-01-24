@@ -101,42 +101,64 @@
 </li>
 </ol>
 <h1 id="3-実行準備">3 実行準備</h1>
-<p>前提条件の実施により実行環境が整いましたら、
+<ol>
+<li><p>前提条件の実施により実行環境が整いましたら、
 <a href="https://github.com/Project-PLATEAU/People-Flow-Simulation-Analysis-AWS-CDK/tree/main">こちら</a>
-からソースファイルをgit cloneします。<br></p>
-<p>git clone完了後、cdkappディレクトリに移動し、以下コマンドを実行して必要なライブラリのインストールを行います。</p>
-<pre><code class="lang-bash">cd People-Flow-Simulation-Analysis-AWS-CDK
+からソースファイルをgit cloneします。<br>
+a. githubページの以下ボタンをクリックし、clone用のURLをクリップボードにコピーします。<br>
+<img src="../resources/devMan/ss_github01.png" alt=""><br><br>
+b. Macの場合ターミナル、Windowsの場合コマンドプロンプトにて以下のコマンドを実行します。<br></p>
+<pre><code>git clone &lt;クリップボードにコピーしたURL&gt;
+</code></pre>
+ <br>
+</li>
+<li><p>git clone完了後、以下コマンドでcdkappディレクトリに移動し、必要なライブラリのインストールを行います。<br></p>
+<pre><code class="lang-bash"># ディレクトリの移動
+cd People-Flow-Simulation-Analysis-AWS-CDK
+
+# ライブラリのインストール。自動的にnode_modulesディレクトリを生成、各種ライブラリが追加されます。
 npm ci
 </code></pre>
-<p>また、以下の環境変数を設定します。</p>
-<pre><code>export PLATEAU_ENV=dev #こちらにはdevもしくはprodを指定
+ <br>
+</li>
+<li><p>また、以下の環境変数を設定します。<br></p>
+<pre><code class="lang-bash"># 環境変数の設定
+export PLATEAU_ENV=dev #こちらにはdevもしくはprodを指定
 </code></pre>
+ <br>
+</li>
+</ol>
 <h1 id="4-実行手順">4 実行手順</h1>
 <ol>
-<li>新規AWS環境の場合、CDKを利用するために最初に一度だけ以下のコマンドの実施が必要です。
+<li>AWS Cloud Development Kit (CDK)を使用する際に必要な初期設定を行うため以下のコマンドを実行します。<br>
+本コマンドについては、対象のAWSアカウントおよびリージョンごとに一度だけの実施で問題ございません。
 <pre><code class="lang-bash">npx cdk bootstrap
 </code></pre>
 </li>
 </ol>
-<p><br><br></p>
+<br>
 <ol start="2">
-<li>以下のコマンドでCDKを実行して分析環境をデプロイします。
+<li><p>以下のコマンドでCDKを実行して分析環境をデプロイします。</p>
 <pre><code class="lang-bash"># デプロイはAWSのdefaultプロファイルに基づき実行されます
 npm run deploy
 </code></pre>
+ <br>
+<p>デプロイの状況については、AWS CloudFormationから確認が可能です。<br>
+以下のスタックのステータスが全て <code>CREATE_COMPLETE</code> となっておりましたら完了となります。<br></p>
+<pre><code>PFSQuickSightStack-&lt;PLATEAU_ENV環境変数で指定した文字列&gt;
+PFSGlueWorkflowStack-&lt;PLATEAU_ENV環境変数で指定した文字列&gt;
+PFSGlueJobStack-&lt;PLATEAU_ENV環境変数で指定した文字列&gt;
+PFSGlueDbStack-&lt;PLATEAU_ENV環境変数で指定した文字列&gt;
+PFSAthenaStack-&lt;PLATEAU_ENV環境変数で指定した文字列&gt;
+PFSS3Stack-&lt;PLATEAU_ENV環境変数で指定した文字列&gt;
+</code></pre>
+ <br>
+<ul>
+<li>画面イメージ<br>
+<img src="../resources/devMan/ss_cloudformation01.png" alt=""></li>
+</ul>
 </li>
 </ol>
-<p><br><br></p>
-<h1 id="tips">Tips</h1>
-<h2 id="個別デプロイ">個別デプロイ</h2>
-<p>以下のコマンドでサービス個別のデプロイも可能です。</p>
-<pre><code>npm run deploy:AthenaStack #Athenaのみ
-npm run deploy:GlueDbStack #Glueデータベースのみ
-npm run deploy:GlueJobStack #Glueジョブのみ
-npm run deploy:GlueWorkflowStack #Glueワークフローのみ
-npm run deploy:QuickSightStack #QuickSightのみ
-npm run deploy:S3Stack #s3バケットのみ
-</code></pre>
 
 </article>
           </div>

@@ -80,25 +80,22 @@
 <h1 id="分析の実行">分析の実行</h1>
 
 <h1 id="1-本書について">1 本書について</h1>
-<p>本書では、シミュレーション結果分析のためのAWS環境構築用AWS CDKを用いて構築したAWS上の分析環境で、分析結果を確認する方法を説明します。</p>
+<p>本書では、人流シミュレーション結果分析のためのAWS環境構築用AWS CDKを用いて構築したAWS上の分析環境で、分析結果を確認する方法を説明します。</p>
 <h1 id="2-使い方">2 使い方</h1>
-<h2 id="2-1-シミュレーションの実行">2-1 シミュレーションの実行</h2>
+<h2 id="2-1-概要">2-1 概要</h2>
+<ul>
+<li>別途提供の <a href="../index.html">UE4用人流シミュレーションプラグイン</a> を用いて人流シミュレーションを実行した結果の出力ログもしくは人流ログをご用意頂き、<a href="devMan.html">環境構築手順</a> にて事前にデプロイ頂いたS3バケットに配置することで、Glueによるログ加工及びQuickSightでのデータ分析を可能とします（手順は2-2項を参照）。<br><br></li>
+</ul>
+<h2 id="2-2-サンプル分析の作成手順">2-2 サンプル分析の作成手順</h2>
 <ol>
-<li>環境構築手順書で用意したAWSアカウント情報を設定し、別途 <a href="../index.html">UE4用人流シミュレーションプラグイン</a> を用いてシミュレーションを実行します。<br><br></li>
-<li>シミュレーションの実行が完了するとログが環境構築手順書でデプロイしたS3にアップロードされます。<br><br></li>
-<li>s3にログがアップロードされ、プラグインにより自動的にGlueワークフローが実行されます。<br><br></li>
-<li>Glueワークフローの完了後、QuickSightにてデータセットから分析を作成することが可能となります。<br><br></li>
-</ol>
-<h2 id="サンプル分析の作成手順">サンプル分析の作成手順</h2>
-<ol>
-<li><a href="devMan.html">環境構築手順書</a> を参考に各種サービスをデプロイします。<br><br></li>
-<li>AWSマネジメントコンソールよりs3にアクセスし、以下のバケットを検索します。
+<li>AWSマネジメントコンソールよりs3にアクセスし、以下のバケットを検索します。<br>
 <ul>
 <li>PLATEAU_DEV=devの場合<br>
-pfss3stack-dev-analyzecsvlogbucket~<br><br></li>
+pfss3stack-dev-analyzecsvlogbucket~<br>
+<img src="../resources/userMan/ss_s301.png" alt=""><br><br></li>
 </ul>
 </li>
-<li>2のバケット配下に以下バケットを作成します。
+<li>1で検索したバケットの配下に、 <a href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/create-bucket-overview.html">AWSユーザーガイド</a> を参考に以下バケットを作成します。
 <pre><code class="lang-text">character-end-log/dt=sample-data
 character-info-log/dt=sample-data
 character-start-log/dt=sample-data
@@ -106,26 +103,32 @@ goal-density-info/dt=sample-data
 </code></pre>
 <ul>
 <li>以下は <code>character-start-log/dt=sample-data</code> を作成した場合のイメージです。
-<img src="../resources/userMan/sample_ss_s301.png" alt=""><br><br></li>
+<img src="../resources/userMan/ss_s302.png" alt=""><br><br></li>
 </ul>
 </li>
-<li>本プロジェクト <code>mainブランチ</code> の以下ディレクトリに格納されている各種サンプルログを対応するバケットにアップロードします。
+<li>本プロジェクト <code>mainブランチ</code> の以下ディレクトリに格納されている各種サンプルログを、 <a href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/upload-objects.html">AWSユーザーガイド</a> を参考に対応するバケットにアップロードします。
 <pre><code class="lang-text">Contents/sampleLogs
 </code></pre>
 <br><br></li>
-<li>マネジメントコンソールにてAWS Glueにアクセスし、左ペインから <code>Workflows(orchestration)</code> を選択します。<br><br></li>
+<li>マネジメントコンソールにてAWS Glueにアクセスし、左ペインから <code>Workflows(orchestration)</code> を選択します。<br>
+<img src="../resources/userMan/ss_glue01.png" alt=""><br><br></li>
 <li>環境構築手順書にてデプロイしたワークフローを選択し、<code>Edit</code> を押下します。
-<img src="../resources/userMan/sample_ss_glue01.png" alt=""><br><br></li>
-<li><code>Properties - optional</code> のアコーディオンを開き、以下のように設定を行います（Valueの項目は手順3で設定したバケット名の<code>dt=</code>以降）。
+<img src="../resources/userMan/ss_glue02.png" alt=""><br>
+<img src="../resources/userMan/ss_glue03.png" alt=""><br><br></li>
+<li><code>Properties - optional</code> のアコーディオンメニューを開き、以下のように設定を行います（Valueの項目は手順3で設定したバケット名の<code>dt=</code>以降）。<br>
 <pre><code class="lang-text">Key: Target
 Value: sample-data
 </code></pre>
-<img src="../resources/userMan/sample_ss_glue02.png" alt=""><br><br></li>
-<li><code>Update workflow</code> を押下します。<br><br>
-<img src="../resources/userMan/sample_ss_glue03.png" alt=""><br><br></li>
-<li>ワークフローの画面に戻るため、<code>Run workflow</code> を押下します。<br><br>
-<img src="../resources/userMan/sample_ss_glue04.png" alt=""><br><br></li>
-<li>9によりQuickSightのデータセットが作成されますので、そちらから任意の分析を作成できます。<br>
+<img src="../resources/userMan/ss_glue04.png" alt=""><br><br></li>
+<li><code>Update workflow</code> を押下します。<br>
+<img src="../resources/userMan/ss_glue05.png" alt=""><br><br></li>
+<li>ワークフローの画面に戻るため、<code>Run workflow</code> を押下します。<br>
+<img src="../resources/userMan/ss_glue06.png" alt=""><br><br>
+ワークフローの状況については以下の <code>Last run status</code> から確認が可能です。<br>
+こちらが <code>Completed</code> となっておりましたらワークフローの完了となります。<br>
+<img src="../resources/userMan/ss_glue07.png" alt=""><br><br></li>
+<li>8の完了後以下のようにQuickSightの画面にてデータセットが追加されており、そちらから任意の分析を作成できます。<br>
+<img src="../resources/userMan/ss_quicksight01.png" alt=""><br><br>
 QuickSightでの分析の作成については <a href="https://docs.aws.amazon.com/ja_jp/quicksight/latest/user/creating-an-analysis.html">公式のユーザーガイド</a> をご確認ください。</li>
 </ol>
 
