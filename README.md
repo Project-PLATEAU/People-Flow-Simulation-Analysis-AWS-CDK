@@ -65,4 +65,3 @@ UE4用人流シミュレーションプラグイン(※) のアウトプット�
 ## 10. 参考資料
 - 技術検証レポート: https://www.mlit.go.jp/plateau/file/libraries/doc/plateau_tech_doc_0030_ver01.pdf
 - PLATEAU WebサイトのUse caseページ「都市再生安全確保計画等の策定支援のための避難シミュレータの社会実装モデルの開発」: https://www.mlit.go.jp/plateau/use-case/uc22-013/
-

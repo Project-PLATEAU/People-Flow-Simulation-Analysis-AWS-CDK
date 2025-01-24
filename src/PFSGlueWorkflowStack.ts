@@ -24,7 +24,7 @@ export class PFSGlueWorkflowStack extends Stack {
       defaultRunProperties: {
         Target: "",
       },
-      description: "密集分析＆避難完了時間分析",
+      description: "密集分析＆移動完了時間分析",
     });
 
     if (csv2parquetJob) {

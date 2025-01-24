@@ -199,7 +199,7 @@ export class PFSQuickSightStack extends Stack {
         permissions: dataSetPermissions,
       });
 
-      // データセット（避難完了時間）
+      // データセット（移動完了時間）
       const dataSetEvacuationElapse = new aws_quicksight.CfnDataSet(this, "QuickSightDataSetStack2", {
         awsAccountId: Aws.ACCOUNT_ID,
         dataSetId: QUICK_SIGHT_EVACUATION_ELAPSED_DATASET_ID,
