@@ -10,14 +10,14 @@
 ## 1. 概要
 UE4用人流シミュレーションプラグイン(※) のアウトプットログから分析作成行うためのAWS環境構築用のAWS CDKを公開しています。<br>
 本リポジトリではProject PLATEAUのFY24 UC24-06で活用した分析環境のうち、公開可能な分析作成環境をOSSとしています。<br>
-(※) [こちら](https://www.mlit.go.jp/plateau/file/libraries/doc/plateau_tech_doc_0030_ver01.pdf) の技術検証レポートをご確認ください。
+(※) [こちら](https://www.mlit.go.jp/plateau/file/libraries/doc/plateau_tech_doc_0101_ver01.pdf) の技術検証レポートをご確認ください。
 
 ## 2. 「都市再生安全確保計画等の策定支援のための避難シミュレータの社会実装モデルの開発」について
 
 「都市再生安全確保計画等の策定支援のための避難シミュレータの社会実装モデルの開発」では、3D都市モデルとエリア防災計画に基づく人流データ等を用いて、避難者の人流をシミュレーション可能なアプリケーションの開発を行いました。本避難シミュレーションを実施・検証することで、実効性のある防災計画・防災マニュアル等の策定支援が可能となります。本ページで公開されているAWS CDKは、前述の通り当該アプリケーションのアウトプットログから分析作成を行うための環境構築を行うモジュールとなります。
 
 ## 3. 利用手順
-本CDKの利用手順については[利用チュートリアル](https://r5-plateau-acn.github.io/SolarPotential/)を参照してください。
+本CDKの利用手順については[利用チュートリアル](https://project-plateau.github.io/People-Flow-Simulation-Analysis-AWS-CDK/)を参照してください。
 
 ## 4. システム概要
 ### 【分析環境の構築とデータ加工】
@@ -63,5 +63,5 @@ UE4用人流シミュレーションプラグイン(※) のアウトプット�
 - 本リポジトリの利用により生じた損失及び損害等について、国土交通省はいかなる責任も負わないものとします。
 
 ## 10. 参考資料
-- 技術検証レポート: https://www.mlit.go.jp/plateau/file/libraries/doc/plateau_tech_doc_0030_ver01.pdf
-- PLATEAU WebサイトのUse caseページ「都市再生安全確保計画等の策定支援のための避難シミュレータの社会実装モデルの開発」: https://www.mlit.go.jp/plateau/use-case/uc22-013/
+- 技術検証レポート: https://www.mlit.go.jp/plateau/file/libraries/doc/plateau_tech_doc_0101_ver01.pdf
+- PLATEAU WebサイトのUse caseページ「防災エリアマネジメントDX v2.0」: https://www.mlit.go.jp/plateau/use-case/uc24-06/
